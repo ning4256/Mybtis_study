@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+  PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-config.dtd">
+
+<!-- 跟标签：配置标签 -->
+<configuration>
+	<!-- 引入db.properties文件 -->
+	<properties resource="db.properties"></properties>
+	<!-- log4j的配置信息 -->
+	<settings>
+		<setting name="logImpl" value="LOG4J"/>
+	</settings>
+	<!-- 别名配置 -->
+	<typeAliases>
+	  <typeAlias alias="_StudentPo" type="com.ning4256.pojo.StudentPo"/>
+	</typeAliases>
+
+	<!-- 环境标签，指定当前采用哪个环境进行操作 -->
+	<environments default="development">
+		<!-- 环境：id -->
+		<environment id="development">
+			<!-- 事务管理器：由谁管理事务 这里采用的原生的JDBC管理事务 -->
+			<transactionManager type="JDBC" />
+			<!-- 操作哪个数据库 是否采用的数据库连接池 -->
+			<dataSource type="POOLED">
+				<!-- 配置连接数据库的参数 -->
+				<property name="driver" value="${driver}" />
+				<property name="url" value="${url}" />
+				<property name="username" value="${name}" />
+				<property name="password" value="${password}" />
+			</dataSource>
+		</environment>
+	</environments>
+	<!-- 引入自定义的mapper文件 -->
+	<mappers>
+		<mapper resource="com/ning4256/mapping/StudentPoMapper.xml" />
+	</mappers>
+</configuration>

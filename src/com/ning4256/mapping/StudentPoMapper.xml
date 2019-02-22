@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- 映射的跟标签，命名空间，区分不同的sql -->
+<mapper namespace="abc">
+	<!-- 查询所有学生的信息 -->
+	<select id="selectAll" parameterType="int" resultType="_StudentPo">
+		select * from student
+	</select>
+	<!-- 查询指定id的学生信息 -->
+	<select id="selectOne" parameterType="_int" resultType="_StudentPo">
+		select * from student where sid=#{sid}
+	</select>
+	
+	<!-- 查询指定id和名字的学生信息 -->
+	<select id="selectByObj" parameterType="_StudentPo" resultType="_StudentPo">
+		select * from student where sid=#{sid} and sname=#{sname}
+	</select>
+
+	<!-- 模糊查询 -->
+	<select id="selectByLike" parameterType="string" resultType="_StudentPo">
+		select * from student where sname like #{sname}
+	</select>
+	
+	<!-- 分页查询 -->
+	<select id="selectByLimit" parameterType="map" resultType="_StudentPo">
+		select * from student limit #{index},#{count}
+	</select>
+	
+	<!-- 聚合查询 -->
+	<select id="selectCount"  resultType="int">
+		select count(*) from student
+	</select>
+	
+	<!-- mybatis不能使用运算符  -->
+	<select id="selectLt" parameterType="_int" resultType="_StudentPo">
+		select * from student where sage &lt; #{sage}
+		
+	</select>
+
+	<!-- 插入某个学生的信息 -->
+	<insert id="insertStudent" parameterType="_StudentPo">
+		insert into student (sname, sage) values ( #{sname}, #{sage})
+	</insert>
+	
+	<!-- 按某个id删除该学生 -->
+	<delete id="deleteById" parameterType="int">
+		delete from student where sid=#{sid}
+	</delete>
+	
+	<!-- 根据id更新该学生信息 -->
+	<update id="updateById" parameterType="_StudentPo">
+	  update student set sname=#{sname},sage=#{sage} where sid = #{sid}
+	</update>
+	
+
+
+
+</mapper>
